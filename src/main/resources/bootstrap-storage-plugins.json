@@ -1,0 +1,9 @@
+{
+  "storage":{
+    http : {
+      type:"http",
+      enabled: false,
+      connection:"//"
+    }
+  }
+}
