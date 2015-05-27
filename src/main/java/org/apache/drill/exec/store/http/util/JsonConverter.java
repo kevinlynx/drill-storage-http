@@ -26,9 +26,16 @@ import com.google.common.base.Charsets;
 
 public class JsonConverter {
   public static JsonNode parse(String content, String key) {
+    String []path = key.split("/");
     try {
-      JsonNode root = from(content);
-      return root.get(key);
+      JsonNode node = from(content);
+      for (String p : path) {
+        if (node == null) {
+          return null;
+        }
+        node = node.get(p);
+      }
+      return node;
     } catch (IOException e) {
       e.printStackTrace();
     }
