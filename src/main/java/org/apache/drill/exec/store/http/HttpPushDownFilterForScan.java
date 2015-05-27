@@ -75,6 +75,7 @@ public class HttpPushDownFilterForScan extends StoragePluginOptimizerRule {
     if (scan.getGroupScan() instanceof HttpGroupScan) {
       return super.matches(call);
     }
+    logger.debug("http matches return false {}", scan.getGroupScan());
     return false;
   }
 }

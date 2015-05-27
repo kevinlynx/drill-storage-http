@@ -75,17 +75,24 @@ public class HttpRecordReader extends AbstractRecordReader {
     SimpleHttp http = new SimpleHttp();
     String content = http.get(url);
     logger.debug("http '{}' response {} bytes", url, content.length());
-    JsonNode root = JsonConverter.parse(content, "results"); // btrabbit.com
-    logger.debug("response object count {}", root.size());
-    jsonIt = root.elements();
+    parseResult(content);
   }
 
   private void loadFile() {
     logger.debug("load local file {}", subScan.getScanSpec().getURI());
     String file = subScan.getScanSpec().getURI().substring("file://".length() - 1);
     String content = JsonConverter.stringFromFile(file);
-    JsonNode root = JsonConverter.parse(content, "results"); // btrabbit.com
-    jsonIt = root.elements();
+    parseResult(content);
+  }
+
+  private void parseResult(String content) {
+    String key = subScan.getStorageConfig().getResultKey();
+    JsonNode root = key.length() == 0 ? JsonConverter.parse(content) :
+      JsonConverter.parse(content, key);
+    if (root != null) {
+      logger.debug("response object count {}", root.size());
+      jsonIt = root.elements();
+    }
   }
 
   @Override

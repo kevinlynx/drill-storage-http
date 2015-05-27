@@ -47,7 +47,16 @@ public class HttpScanSpec {
       return uri;
     }
     Joiner j = Joiner.on('&');
-    return uri + '?' + j.withKeyValueSeparator("=").join(args);
+    String url = uri;
+    String argStr = j.withKeyValueSeparator("=").join(args);
+    if (url.endsWith("?")) {
+      url += argStr;
+    } else if (url.contains("?")) {
+      url += '&' + argStr;
+    } else {
+      url += '?' + argStr;
+    }
+    return url;
   }
 
   public void merge(HttpScanSpec that) {

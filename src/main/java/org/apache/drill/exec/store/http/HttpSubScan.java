@@ -51,6 +51,10 @@ public class HttpSubScan extends AbstractBase implements SubScan {
     return config.getConnection() + getURL();
   }
 
+  HttpStoragePluginConfig getStorageConfig() {
+    return config;
+  }
+
   @Override
   public <T, X, E extends Throwable> T accept(
       PhysicalVisitor<T, X, E> physicalVisitor, X value) throws E {

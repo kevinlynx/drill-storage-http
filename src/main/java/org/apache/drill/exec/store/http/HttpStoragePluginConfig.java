@@ -32,11 +32,14 @@ public class HttpStoragePluginConfig extends StoragePluginConfig {
 
   public static final String NAME = "http";
   private String connection;
+  private String resultKey; // result key
 
   @JsonCreator
-  public HttpStoragePluginConfig(@JsonProperty("connection") String connection) {
+  public HttpStoragePluginConfig(@JsonProperty("connection") String connection,
+      @JsonProperty("resultKey") String resultKey) {
     logger.info("initialize HttpStoragePluginConfig {}", connection);
     this.connection = connection;
+    this.resultKey = resultKey;
   }
 
   @Override
@@ -48,7 +51,7 @@ public class HttpStoragePluginConfig extends StoragePluginConfig {
     }
     logger.debug("HttpStoragePluginConfig equals {}", connection);
     HttpStoragePluginConfig t = (HttpStoragePluginConfig) that;
-    return this.connection.equals(t.connection);
+    return this.connection.equals(t.connection) && this.resultKey.equals(t.resultKey);
   }
 
   @Override
@@ -63,5 +66,9 @@ public class HttpStoragePluginConfig extends StoragePluginConfig {
 
   public String getConnection() {
     return connection;
+  }
+
+  public String getResultKey() {
+    return resultKey;
   }
 }
