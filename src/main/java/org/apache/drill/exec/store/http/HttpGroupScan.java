@@ -30,6 +30,8 @@ import org.apache.drill.exec.physical.base.ScanStats.GroupScanProperty;
 import org.apache.drill.exec.physical.base.SubScan;
 import org.apache.drill.exec.proto.CoordinationProtos.DrillbitEndpoint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class HttpGroupScan extends AbstractGroupScan {
   static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HttpGroupScan.class);
 
@@ -99,6 +101,7 @@ public class HttpGroupScan extends AbstractGroupScan {
     return new ScanStats(GroupScanProperty.EXACT_ROW_COUNT, 1, 1, (float) 10);
   }
 
+  @JsonIgnore
   public boolean isFilterPushedDown() {
     return filterPushedDown;
   }

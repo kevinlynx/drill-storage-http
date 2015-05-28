@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Joiner;
 
@@ -42,6 +43,7 @@ public class HttpScanSpec {
     return uri;
   }
 
+  @JsonIgnore
   public String getURL() {
     if (args.size() == 0) {
       return uri;
